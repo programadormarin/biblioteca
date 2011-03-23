@@ -31,6 +31,9 @@ namespace br\com\hermenegildo\biblioteca\entities {
 			return $this->id;
 		}
 		
+		/**
+		 * @return \DateTime
+		 */
 		public function getData() {
 			return $this->data;
 		}
