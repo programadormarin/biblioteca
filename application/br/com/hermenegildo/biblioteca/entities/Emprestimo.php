@@ -4,6 +4,7 @@ namespace br\com\hermenegildo\biblioteca\entities {
 		private $id;
 		private $data;
 		private $dataDevolucao;
+		private $dataProgramada;
 		private $multa;
 		
 		public function setId($id) {
@@ -12,6 +13,10 @@ namespace br\com\hermenegildo\biblioteca\entities {
 		
 		public function setData($data) {
 			$this->data = $data;
+		}
+		
+		public function setDataProgramada($dataProgramada) {
+			$this->dataDevolucao = $dataDevolucao;
 		}
 		
 		public function setDataDevolucao($dataDevolucao) {
@@ -28,6 +33,10 @@ namespace br\com\hermenegildo\biblioteca\entities {
 		
 		public function getData() {
 			return $this->data;
+		}
+		
+		public function getDataProgramada() {
+			return $this->dataProgramada;
 		}
 		
 		public function getDataDevolucao() {
