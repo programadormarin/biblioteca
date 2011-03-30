@@ -8,14 +8,16 @@ namespace br\com\hermenegildo\biblioteca\dao {
 	
 		public function getById($id) {
 			$pdo = ConexaoMysql::getInstance();
-			$sql = 'SELECT * FROM autor WHERE id = ?';
+			$sql = 'SELECT * FROM biblioteca WHERE id = ?';
 			$stm = $pdo->prepare($sql);
 			$stm->execute(array($id));
 			if ($obj = $stm->fetchObject()) {
 				$biblioteca = new Biblioteca();
-				$autor->setId($obj->id);
-				$autor->setNome($obj->nome);
-				return $usuario;
+				$biblioteca->setId($obj->id);
+				$biblioteca->setNome($obj->nome);
+				$biblioteca->setCnpj($obj->cnpj);
+				$biblioteca->setValorMulta($obj->valor_multa);
+				return $biblioteca;
 			} else {
 				throw new PDOException('Não foi encontrado autor com a id ' . $id);
 			}
@@ -23,43 +25,48 @@ namespace br\com\hermenegildo\biblioteca\dao {
 		
 		public function listAll() {
 			$pdo = ConexaoMysql::getInstance();
-			$sql = 'SELECT * FROM autor ORDER BY `id`';
-			$stm = $pdo->prepare($sql);
-			$stm->execute(array($id));
-			$autores = new SplFixedArray($stm->rowCount());
+			$stm = $pdo->prepare('SELECT * FROM biblioteca ORDER BY id');
+			$stm->execute();
+			$bibliotecas = new SplFixedArray($stm->rowCount());
 			while ($obj = $stm->fetchObject()) {
-				$autor = new Autor();
-				$autor->setId($obj->id);
-				$autor->setNome($obj->nome);
-				$autores[] = $autor;
+				$biblioteca = new Biblioteca();
+				$biblioteca->setId($obj->id);
+				$biblioteca->setNome($obj->nome);
+				$biblioteca->setCnpj($obj->cnpj);
+				$biblioteca->setValorMulta($obj->valor_multa);
+				$bibliotecas[] = $biblioteca;
 			}
-			return $autores;
+			return $bibliotecas;
 		}
 		
-		public function save(Autor $autor) {
+		public function save(Biblioteca $biblioteca) {
 			$pdo = ConexaoMysql::getInstance();
 			
 			if ($autor->getId()) {
-				$stm = $pdo->prepare('UPDATE autor SET nome = ? WHERE id = ?');
-				$stm->bindValue(1, $autor->getNome());
-				$stm->bindValue(2, $autor->getId());
-				$stm->execute(array($autor->getNome(), $autor->getId()));
+				$stm = $pdo->prepare('UPDATE biblioteca SET nome = ?, cnpj = ?, valor_multa = ? WHERE id = ?');
+				$stm->bindValue(1, $biblioteca->getNome());
+				$stm->bindValue(2, $biblioteca->getCnpj());
+				$stm->bindValue(3, $biblioteca->getValorMulta());
+				$stm->bindValue(4, $biblioteca->getId());
+				$stm->execute();
 			} else {
-				$stm = $pdo->prepare('INSERT INTO autor (nome) VALUES (?) LIMIT 1');
-				$stm->bindValue(1, $autor->getNome());
-				$stm->execute(array($autor->getNome()));
+				$stm = $pdo->prepare('INSERT INTO biblioteca (nome, cnpj, valor_multa) VALUES (?, ?, ?) LIMIT 1');
+				$stm->bindValue(1, $biblioteca->getNome());
+				$stm->bindValue(2, $biblioteca->getCnpj());
+				$stm->bindValue(3, $biblioteca->getValorMulta());
+				$stm->execute();
 				
-				$autor->setId($pdo->lastInsertId());				
+				$biblioteca->setId($pdo->lastInsertId());				
 			}
 		}
 		
-		public function remove (Autor $autor) {
+		public function remove (Biblioteca $biblioteca) {
 			$pdo = ConexaoMysql::getInstance();
 			
 			if ($autor->getId()) {
-				$stm = $pdo->prepare('DELETE FROM autor WHERE id = ?');
-				$stm->bindValue(1, $autor->getId());
-				$stm->execute(array($autor->getId()));
+				$stm = $pdo->prepare('DELETE FROM biblioteca WHERE id = ?');
+				$stm->bindValue(1, $biblioteca->getId());
+				$stm->execute();
 			} else {
 				throw new PDOException('Parâmetro id é obrigatório.');		
 			}

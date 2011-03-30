@@ -5,7 +5,7 @@ namespace br\com\hermenegildo\biblioteca\dao {
 	class UsuarioDao {
 		public function getById($id) {
 			$pdo = ConexaoMysql::getInstance();
-			$stm = $pdo->prepare('SELECT * FROM autor WHERE id = ?');
+			$stm = $pdo->prepare('SELECT * FROM usuario WHERE id = ?');
 			$stm->execute(array($id));
 			if ($obj = $stm->fetchObject()) {
 				$usuario = new Usuario();
@@ -20,8 +20,8 @@ namespace br\com\hermenegildo\biblioteca\dao {
 		
 		public function listAll() {
 			$pdo = ConexaoMysql::getInstance();
-			$stm = $pdo->prepare('SELECT * FROM autor ORDER BY id');
-			$stm->execute(array($id));
+			$stm = $pdo->prepare('SELECT * FROM usuario ORDER BY id');
+			$stm->execute();
 			$usuarios = new SplFixedArray($stm->rowCount());
 			while ($obj = $stm->fetchObject()) {
 				$usuario = new Usuario();
@@ -46,6 +46,8 @@ namespace br\com\hermenegildo\biblioteca\dao {
 				$smt->bindValue(1, $usuario->getCpf());
 				$smt->bindValue(2, $usuario->getNome());
 				$smt->execute();
+				
+				$usuario->setId($pdo->lastInsertId());
 			}
 		}
 		

@@ -11,15 +11,15 @@ namespace br\com\hermenegildo\biblioteca\entities {
 			$this->id = $id;
 		}
 		
-		public function setData($data) {
+		public function setData(DateTime $data) {
 			$this->data = $data;
 		}
 		
-		public function setDataProgramada($dataProgramada) {
+		public function setDataProgramada(DateTime $dataProgramada) {
 			$this->dataDevolucao = $dataDevolucao;
 		}
 		
-		public function setDataDevolucao($dataDevolucao) {
+		public function setDataDevolucao(DateTime $dataDevolucao) {
 			$this->dataDevolucao = $dataDevolucao;
 		}
 		
@@ -38,10 +38,16 @@ namespace br\com\hermenegildo\biblioteca\entities {
 			return $this->data;
 		}
 		
+		/**
+		 * @return \DateTime
+		 */
 		public function getDataProgramada() {
 			return $this->dataProgramada;
 		}
 		
+		/**
+		 * @return \DateTime
+		 */
 		public function getDataDevolucao() {
 			return $this->dataDevolucao;
 		}
