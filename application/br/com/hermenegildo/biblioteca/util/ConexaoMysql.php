@@ -26,7 +26,7 @@ namespace br\com\hermenegildo\biblioteca\util {
 		 *
 		 * @var string
 		 */
-		const DB = 'mysql';
+		const DB = 'biblioteca';
 	
 		/**
 		 * Usuário a ser utilizado durante a conexão

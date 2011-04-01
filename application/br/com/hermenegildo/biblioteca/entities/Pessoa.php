@@ -17,7 +17,7 @@ namespace br\com\hermenegildo\biblioteca\entities {
 		}
 		
 		public function getNome() {
-			return $this->id;
+			return $this->nome;
 		}
 	}
 }

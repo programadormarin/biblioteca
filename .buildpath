@@ -2,5 +2,7 @@
 <buildpath>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
 	<buildpathentry kind="src" path=""/>
+	<buildpathentry combineaccessrules="false" kind="prj" path="/utils"/>
 	<buildpathentry combineaccessrules="false" kind="prj" path="/outlet-orm"/>
+	<buildpathentry combineaccessrules="false" kind="prj" path="/display-objects"/>
 </buildpath>

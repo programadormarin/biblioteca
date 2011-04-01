@@ -4,7 +4,7 @@ namespace br\com\hermenegildo\biblioteca\dao {
 
 	use br\com\hermenegildo\biblioteca\util\ConexaoMysql;
 
-	class AutorDao {
+	class LivroDao {
 	
 		public function getById($id) {
 			$pdo = ConexaoMysql::getInstance();

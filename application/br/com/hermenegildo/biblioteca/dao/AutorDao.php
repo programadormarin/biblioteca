@@ -1,5 +1,7 @@
 <?php
 namespace br\com\hermenegildo\biblioteca\dao {
+	use br\com\hermenegildo\biblioteca\entities\Autor;
+
 	use br\com\hermenegildo\biblioteca\util\ConexaoMysql;
 
 	class AutorDao {
@@ -42,7 +44,7 @@ namespace br\com\hermenegildo\biblioteca\dao {
 				$stm->bindValue(2, $autor->getId());
 				$stm->execute();
 			} else {
-				$stm = $pdo->prepare('INSERT INTO autor (nome) VALUES (?) LIMIT 1');
+				$stm = $pdo->prepare('INSERT INTO autor (nome) VALUES (?)');
 				$stm->bindValue(1, $autor->getNome());
 				$stm->execute();
 				
